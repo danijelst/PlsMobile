@@ -1,5 +1,5 @@
 var db;
-var base_uri = 'd/index.php';
+var base_uri = 'json.php';
 var jQT = $.jQTouch({
     icon: 'favicon.ico',
     startupScreen: 'pls-startup.png',
@@ -22,10 +22,14 @@ $(document).ready(function() {
                                     if (coords) {
                                         localStorage.latitude = coords.latitude;
                                         localStorage.longitude = coords.longitude;
-                                        loadParkingListByLocation(coords.latitude + ',' + coords.longitude);
-                                        jQT.goTo('#parking');
+                                        alert('location found');
+                                        var newEntryRow = $('#entryMenu').clone();
+                                        newEntryRow.removeAttr('id');
+                                        newEntryRow.removeAttr('style');
+                                        newEntryRow.appendTo('#home ul');
                                     }
                                   });
+  
   var appCache = window.applicationCache;
   function updateCache(){
       appCache.swapCache();
@@ -43,16 +47,25 @@ $(document).ready(function() {
       refreshEntries();
   });
   
+  $('#parkingByLocation').click(function(){
+      loadParkingListByLocation(localStorage.latitude + ',' + localStorage.longitude);
+      refreshEntries();
+      jQT.goTo('#parking');
+  });
+  
   $('#country .refresh').click(function(){
     loadCountryList();
+    jQT.goTo('#country');
   });
   
   $('#city .refresh').click(function(){
     loadCityList();
+    jQT.goTo('#city');
   });
   
   $('#parking .refresh').click(function(){
     loadParkingList();
+    jQT.goTo('#parking');
   });
   
   $('#parkingDetails .refresh').click(function(){
@@ -107,7 +120,7 @@ function loadCountryList() {
 
   $.ajax({url:            base_uri,
           dataType:       'json',
-          data:           {v:1, func: 'country'},
+          data:           {w: 'country'},
           type:           'POST',
           success:        function(data) {
                             fillCountryList(data);
@@ -147,7 +160,7 @@ function loadCityList(country, countryDisplay) {
             
   $.ajax({url:            base_uri,
           dataType:       'json',
-          data:           {v:1, func: 'cities', q1: countryDisplay},
+          data:           {w: 'cityByCountry', f: countryDisplay},
           type:           'POST',
           success:        function(data) {
                             fillCityList(data, countryDisplay);
@@ -183,12 +196,13 @@ function fillParkingListByCity(data, country, city) {
                 }
               }
               newEntryRow.find('.free_open').text(freeOpen);
-              
+              /*
               if (typeof item.distance != 'undefined') {
                 newEntryRow.find('.distance').text(item.distance);
               } else {
                 newEntryRow.find('.distance').text('');
               }
+              */
               /*
               newEntryRow.find('.map').click(function(){
                                                             var value = this.id;
@@ -209,7 +223,7 @@ function loadParkingListByCity(country, city) {
   
   $.ajax({url:            base_uri,
           dataType:       'json',
-          data:           {v:1, q3: city}, 
+          data:           {w: 'parkingByCity', f: city}, 
           type:           'POST',
           success:        function(data) {
                             fillParkingListByCity(data, country, city);
@@ -227,7 +241,7 @@ function loadParkingListByLocation(location) {
   $('#parking h1').text('locating...');
   $.ajax({url:            base_uri,
           dataType:       'json',
-          data:           {v:1, ll: location}, 
+          data:           {w: 'parkingByLocation', f: location}, 
           type:           'POST',
           success:        function(data) {
                             fillParkingListByCity(data, '', '');

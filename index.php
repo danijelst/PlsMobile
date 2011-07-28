@@ -15,8 +15,9 @@
                 <h1>ParkLeitSystem - Mobile</h1>
             </div>
             <ul class="rounded">
-                <li class="arrow"><a href="#country" id="search">Search</a></li>
                 <li class="arrow"><a href="#about">About</a></li>
+                <li class="arrow"><a href="#country" id="search">Search</a></li>
+                <li id="entryMenu" class="arrow" style="display:none"><a href="#parkingByLocation">Current location</a></li>
             </ul>
         </div>
         <div id="about">
