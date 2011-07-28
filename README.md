@@ -1,4 +1,4 @@
-PlsMobile
+ï»¿PlsMobile
 =======
 
 PlsMobile is a web page build with HTML, CSS, jQTouch and jQuery. The aim is to have an online and offline mobile app to get information about free car parking possibilities.
@@ -14,7 +14,7 @@ Countries
   - Bern
   - Luzern
   - St. Gallen
-  - Zürich
+  - ZÃ¼rich
 - Germany
   - Konstanz
 
@@ -29,7 +29,7 @@ The data that are provided are taken directly from web pages of the city providi
   - Bern        http://www.parking-bern.ch/listpark.asp
   - Luzern      http://www.pls-luzern.ch/
   - St. Gallen  http://mobile.pls-sg.ch/
-  - Zürich      http://www.pls-zh.ch/plsFeed/rss
+  - ZÃ¼rich      http://www.pls-zh.ch/plsFeed/rss
 - Germany
   - Konstanz    http://www.konstanz.de/tourismus/01759/01765/index.html
 
